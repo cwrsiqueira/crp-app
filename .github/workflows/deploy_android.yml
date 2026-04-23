@@ -26,6 +26,9 @@ jobs:
         run: |
           echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 --decode > android/app/keystore.jks
 
+      - name: Generate launcher icons
+        run: flutter pub run flutter_launcher_icons
+
       - name: Build App Bundle
         run: flutter build appbundle --release
         env:
