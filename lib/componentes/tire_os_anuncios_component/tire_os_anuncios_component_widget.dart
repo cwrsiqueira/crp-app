@@ -67,7 +67,6 @@ class _TireOsAnunciosComponentWidgetState
                     borderRadius: BorderRadius.circular(16.0),
                   ),
                   child: Container(
-                    height: 180.0,
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
                         colors: [
@@ -102,15 +101,13 @@ class _TireOsAnunciosComponentWidgetState
                                       alignment:
                                           AlignmentDirectional(0.0, -1.0),
                                       child: Text(
-                                        'REMOVA OS ANÚNCIOS',
+                                        'SALVAR CÁLCULOS ILIMITADOS e REMOVER ANÚNCIOS',
+                                        textAlign: TextAlign.center,
                                         style: FlutterFlowTheme.of(context)
                                             .titleMedium
                                             .override(
                                               font: GoogleFonts.inter(
-                                                fontWeight:
-                                                    FlutterFlowTheme.of(context)
-                                                        .titleMedium
-                                                        .fontWeight,
+                                                fontWeight: FontWeight.w500,
                                                 fontStyle:
                                                     FlutterFlowTheme.of(context)
                                                         .titleMedium
@@ -119,11 +116,9 @@ class _TireOsAnunciosComponentWidgetState
                                               color:
                                                   FlutterFlowTheme.of(context)
                                                       .secondaryBackground,
+                                              fontSize: 18.0,
                                               letterSpacing: 0.0,
-                                              fontWeight:
-                                                  FlutterFlowTheme.of(context)
-                                                      .titleMedium
-                                                      .fontWeight,
+                                              fontWeight: FontWeight.w500,
                                               fontStyle:
                                                   FlutterFlowTheme.of(context)
                                                       .titleMedium
@@ -149,6 +144,7 @@ class _TireOsAnunciosComponentWidgetState
                                             ),
                                             color: FlutterFlowTheme.of(context)
                                                 .primaryBackground,
+                                            fontSize: 12.0,
                                             letterSpacing: 0.0,
                                             fontWeight:
                                                 FlutterFlowTheme.of(context)
@@ -165,13 +161,63 @@ class _TireOsAnunciosComponentWidgetState
                               ),
                             ].divide(SizedBox(height: 4.0)),
                           ),
+                          Divider(
+                            thickness: 1.0,
+                            color: FlutterFlowTheme.of(context).accent3,
+                          ),
                           Row(
                             mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Column(
                                 mainAxisSize: MainAxisSize.max,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
+                                  Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 0.0, 4.0, 0.0),
+                                        child: Icon(
+                                          Icons.check,
+                                          color: FlutterFlowTheme.of(context)
+                                              .warning,
+                                          size: 16.0,
+                                        ),
+                                      ),
+                                      Text(
+                                        'Salvar cálculos ilimitados',
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              font: GoogleFonts.inter(
+                                                fontWeight:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .fontWeight,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .fontStyle,
+                                              ),
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .alternate,
+                                              fontSize: 12.0,
+                                              letterSpacing: 0.0,
+                                              fontWeight:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .fontWeight,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .fontStyle,
+                                            ),
+                                      ),
+                                    ],
+                                  ),
                                   Row(
                                     mainAxisSize: MainAxisSize.max,
                                     children: [
@@ -203,7 +249,7 @@ class _TireOsAnunciosComponentWidgetState
                                               color:
                                                   FlutterFlowTheme.of(context)
                                                       .alternate,
-                                              fontSize: 14.0,
+                                              fontSize: 12.0,
                                               letterSpacing: 0.0,
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
@@ -248,7 +294,7 @@ class _TireOsAnunciosComponentWidgetState
                                               color:
                                                   FlutterFlowTheme.of(context)
                                                       .alternate,
-                                              fontSize: 14.0,
+                                              fontSize: 12.0,
                                               letterSpacing: 0.0,
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
@@ -293,7 +339,7 @@ class _TireOsAnunciosComponentWidgetState
                                               color:
                                                   FlutterFlowTheme.of(context)
                                                       .alternate,
-                                              fontSize: 14.0,
+                                              fontSize: 12.0,
                                               letterSpacing: 0.0,
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
@@ -306,6 +352,46 @@ class _TireOsAnunciosComponentWidgetState
                                             ),
                                       ),
                                     ],
+                                  ),
+                                ],
+                              ),
+                              Column(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    'Versão PRO',
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyLarge
+                                        .override(
+                                      font: GoogleFonts.inter(
+                                        fontWeight: FontWeight.w600,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .bodyLarge
+                                            .fontStyle,
+                                      ),
+                                      color: FlutterFlowTheme.of(context)
+                                          .alternate,
+                                      fontSize: 12.0,
+                                      letterSpacing: 0.0,
+                                      fontWeight: FontWeight.w600,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .bodyLarge
+                                          .fontStyle,
+                                      shadows: [
+                                        Shadow(
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryText,
+                                          offset: Offset(2.0, 2.0),
+                                          blurRadius: 2.0,
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                  Icon(
+                                    Icons.workspace_premium,
+                                    color: FlutterFlowTheme.of(context).warning,
+                                    size: 36.0,
                                   ),
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
@@ -339,7 +425,8 @@ class _TireOsAnunciosComponentWidgetState
                                               ),
                                               color:
                                                   FlutterFlowTheme.of(context)
-                                                      .primaryText,
+                                                      .secondaryText,
+                                              fontSize: 12.0,
                                               letterSpacing: 0.0,
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
@@ -357,64 +444,6 @@ class _TireOsAnunciosComponentWidgetState
                                     ),
                                   ),
                                 ],
-                              ),
-                              Expanded(
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      'Versão PRO',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyLarge
-                                          .override(
-                                            font: GoogleFonts.inter(
-                                              fontWeight: FontWeight.w600,
-                                              fontStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyLarge
-                                                      .fontStyle,
-                                            ),
-                                            color: FlutterFlowTheme.of(context)
-                                                .alternate,
-                                            letterSpacing: 0.0,
-                                            fontWeight: FontWeight.w600,
-                                            fontStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyLarge
-                                                    .fontStyle,
-                                          ),
-                                    ),
-                                    Icon(
-                                      Icons.workspace_premium,
-                                      color:
-                                          FlutterFlowTheme.of(context).warning,
-                                      size: 48.0,
-                                    ),
-                                    Text(
-                                      'Promoção',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyLarge
-                                          .override(
-                                            font: GoogleFonts.inter(
-                                              fontWeight: FontWeight.w600,
-                                              fontStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyLarge
-                                                      .fontStyle,
-                                            ),
-                                            color: FlutterFlowTheme.of(context)
-                                                .alternate,
-                                            letterSpacing: 0.0,
-                                            fontWeight: FontWeight.w600,
-                                            fontStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyLarge
-                                                    .fontStyle,
-                                          ),
-                                    ),
-                                  ],
-                                ),
                               ),
                             ],
                           ),

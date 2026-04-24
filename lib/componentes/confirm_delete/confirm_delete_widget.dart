@@ -1,3 +1,4 @@
+import '/componentes/tire_os_anuncios_component/tire_os_anuncios_component_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -71,7 +72,7 @@ class _ConfirmDeleteWidgetState extends State<ConfirmDeleteWidget> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              '9 resultados salvos é o limite máximo.\nO que você quer fazer?',
+              'Limite de 3 cálculos salvos na versão grátis.\nO que você quer fazer?',
               style: FlutterFlowTheme.of(context).titleSmall.override(
                     font: GoogleFonts.inter(
                       fontWeight:
@@ -162,6 +163,11 @@ class _ConfirmDeleteWidgetState extends State<ConfirmDeleteWidget> {
                   ),
                 ),
               ),
+            ),
+            wrapWithModel(
+              model: _model.tireOsAnunciosComponentModel,
+              updateCallback: () => safeSetState(() {}),
+              child: TireOsAnunciosComponentWidget(),
             ),
             Padding(
               padding: EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),

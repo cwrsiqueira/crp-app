@@ -1,4 +1,4 @@
-# Calculadora Renda Passiva iOS
+# Calculadora Renda Passiva
 
 A new Flutter project.
 

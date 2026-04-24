@@ -6,3 +6,5 @@ export '/pages/calcular_renda_passiva_result/calcular_renda_passiva_result_widge
 export '/pages/contact_page/contact_page_widget.dart' show ContactPageWidget;
 export '/pages/about_page/about_page_widget.dart' show AboutPageWidget;
 export '/pages/paywall/paywall_widget.dart' show PaywallWidget;
+export '/pages/calculos_salvos/calculos_salvos_widget.dart'
+    show CalculosSalvosWidget;

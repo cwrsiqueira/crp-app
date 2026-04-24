@@ -96,6 +96,10 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               'renda',
               ParamType.double,
             ),
+            results: params.getParam(
+              'results',
+              ParamType.JSON,
+            ),
           ),
         ),
         FFRoute(
@@ -117,9 +121,12 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: PaywallWidget.routeName,
           path: PaywallWidget.routePath,
-          builder: (context, params) => params.isEmpty
-              ? NavBarPage(initialPage: 'paywall')
-              : PaywallWidget(),
+          builder: (context, params) => PaywallWidget(),
+        ),
+        FFRoute(
+          name: CalculosSalvosWidget.routeName,
+          path: CalculosSalvosWidget.routePath,
+          builder: (context, params) => CalculosSalvosWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

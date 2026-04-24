@@ -7,7 +7,7 @@
 
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:calculadora_renda_passiva_i_o_s/main.dart';
+import 'package:calculadora_renda_passiva/main.dart';
 
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
