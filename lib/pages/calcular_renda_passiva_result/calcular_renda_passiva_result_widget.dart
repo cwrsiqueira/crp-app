@@ -8,6 +8,7 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/backend/schema/structs/index.dart';
 import '/flutter_flow/admob_util.dart' as admob;
 import '/flutter_flow/custom_functions.dart' as functions;
+import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -25,6 +26,7 @@ class CalcularRendaPassivaResultWidget extends StatefulWidget {
     required this.valorRecorrente,
     required this.taxaMensal,
     required this.renda,
+    this.results,
   }) : this.prazo = prazo ?? 0;
 
   final int prazo;
@@ -32,6 +34,9 @@ class CalcularRendaPassivaResultWidget extends StatefulWidget {
   final double? valorRecorrente;
   final double? taxaMensal;
   final double? renda;
+
+  /// Todos os resultados em Json
+  final dynamic results;
 
   static String routeName = 'CalcularRendaPassivaResult';
   static String routePath = '/calcularRendaPassivaResult';
@@ -78,6 +83,13 @@ class _CalcularRendaPassivaResultWidgetState
           );
         }
       }
+      if (widget.results != null) {
+        _model.results = getJsonField(
+          widget.results,
+          r'''$''',
+        );
+        safeSetState(() {});
+      }
     });
   }
 
@@ -114,12 +126,12 @@ class _CalcularRendaPassivaResultWidgetState
             borderWidth: 1.0,
             buttonSize: 60.0,
             icon: Icon(
-              Icons.arrow_back_rounded,
+              Icons.home,
               color: Colors.white,
               size: 30.0,
             ),
             onPressed: () async {
-              context.pop();
+              context.pushNamed(CalcularRendaPassivaPageWidget.routeName);
             },
           ),
           title: Text(
@@ -132,7 +144,7 @@ class _CalcularRendaPassivaResultWidgetState
                         FlutterFlowTheme.of(context).headlineMedium.fontStyle,
                   ),
                   color: Colors.white,
-                  fontSize: 22.0,
+                  fontSize: 20.0,
                   letterSpacing: 0.0,
                   fontWeight:
                       FlutterFlowTheme.of(context).headlineMedium.fontWeight,
@@ -1050,10 +1062,11 @@ class _CalcularRendaPassivaResultWidgetState
                                           hoverColor: Colors.transparent,
                                           highlightColor: Colors.transparent,
                                           onTap: () async {
-                                            if (FFAppState()
-                                                    .historicoDeCalculos
-                                                    .length >=
-                                                9) {
+                                            if ((FFAppState()
+                                                        .historicoDeCalculos
+                                                        .length >=
+                                                    3) &&
+                                                !FFAppState().isPro) {
                                               await showModalBottomSheet(
                                                 isScrollControlled: true,
                                                 backgroundColor:
@@ -1078,7 +1091,7 @@ class _CalcularRendaPassivaResultWidgetState
                                                             MediaQuery.sizeOf(
                                                                         context)
                                                                     .height *
-                                                                0.5,
+                                                                0.8,
                                                         child:
                                                             ConfirmDeleteWidget(
                                                           calcResult:
@@ -1252,7 +1265,7 @@ class _CalcularRendaPassivaResultWidgetState
                                   Padding(
                                     padding: EdgeInsets.all(8.0),
                                     child: Text(
-                                      '${FFAppState().historicoDeCalculos.length.toString()}/9',
+                                      '${FFAppState().historicoDeCalculos.length.toString()}${FFAppState().isPro ? '/∞' : '/3'}',
                                       textAlign: TextAlign.start,
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
@@ -1294,6 +1307,8 @@ class _CalcularRendaPassivaResultWidgetState
                                                         e)!
                                                     .date,
                                             desc: true)
+                                        .toList()
+                                        .take(3)
                                         .toList();
 
                                     return GridView.builder(
@@ -1398,6 +1413,42 @@ class _CalcularRendaPassivaResultWidgetState
                                                     ],
                                                   ),
                                                   Text(
+                                                    valueOrDefault<String>(
+                                                      getJsonField(
+                                                        listaResultadosItem,
+                                                        r'''$.message''',
+                                                      )?.toString(),
+                                                      '\$.message',
+                                                    ),
+                                                    textAlign: TextAlign.center,
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          font:
+                                                              GoogleFonts.inter(
+                                                            fontWeight:
+                                                                FontWeight.w600,
+                                                            fontStyle:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .fontStyle,
+                                                          ),
+                                                          fontSize: 12.0,
+                                                          letterSpacing: 0.0,
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                          fontStyle:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyMedium
+                                                                  .fontStyle,
+                                                        ),
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                  ),
+                                                  Text(
                                                     'Cálculo realizado em',
                                                     textAlign: TextAlign.center,
                                                     style: FlutterFlowTheme.of(
@@ -1494,6 +1545,41 @@ class _CalcularRendaPassivaResultWidgetState
                                       },
                                     );
                                   },
+                                ),
+                              ),
+                            ),
+                          if (FFAppState().isPro)
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 12.0, 0.0, 12.0),
+                              child: InkWell(
+                                splashColor: Colors.transparent,
+                                focusColor: Colors.transparent,
+                                hoverColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
+                                onTap: () async {
+                                  context.pushNamed(
+                                      CalculosSalvosWidget.routeName);
+                                },
+                                child: Text(
+                                  'Ver todos...',
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        font: GoogleFonts.inter(
+                                          fontWeight: FontWeight.w600,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontStyle,
+                                        ),
+                                        fontSize: 16.0,
+                                        letterSpacing: 0.0,
+                                        fontWeight: FontWeight.w600,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .fontStyle,
+                                      ),
                                 ),
                               ),
                             ),

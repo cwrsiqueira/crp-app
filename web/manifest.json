@@ -1,6 +1,6 @@
 {
-    "name": "Calculadora Renda Passiva iOS",
-    "short_name": "Calculadora Renda Passiva iOS",
+    "name": "Calculadora Renda Passiva",
+    "short_name": "Calculadora Renda Passiva",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

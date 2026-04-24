@@ -85,7 +85,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
-      title: 'Calculadora Renda Passiva iOS',
+      title: 'Calculadora Renda Passiva',
       localizationsDelegates: [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
@@ -140,7 +140,6 @@ class _NavBarPageState extends State<NavBarPage> {
       'CalcularRendaPassivaPage': CalcularRendaPassivaPageWidget(),
       'ContactPage': ContactPageWidget(),
       'AboutPage': AboutPageWidget(),
-      'paywall': PaywallWidget(),
     };
     final currentIndex = tabs.keys.toList().indexOf(_currentPageName);
 
@@ -194,16 +193,6 @@ class _NavBarPageState extends State<NavBarPage> {
               size: 24.0,
             ),
             label: 'Sobre',
-            tooltip: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.workspace_premium_outlined,
-            ),
-            activeIcon: Icon(
-              Icons.workspace_premium,
-            ),
-            label: 'PRO',
             tooltip: '',
           )
         ],

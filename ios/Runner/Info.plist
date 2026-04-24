@@ -13,7 +13,7 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>Calculadora Renda Passiva iOS</string>
+	<string>Calculadora Renda Passiva</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 
@@ -26,7 +26,7 @@
         <key>CFBundleTypeRole</key>
         <string>Editor</string>
         <key>CFBundleURLName</key>
-        <string>calculadorarendapassivaios.com</string>
+        <string>calculadorarendapassiva.com</string>
         <key>CFBundleURLSchemes</key>
         <array>
         <string>calcularrendapassiva</string>

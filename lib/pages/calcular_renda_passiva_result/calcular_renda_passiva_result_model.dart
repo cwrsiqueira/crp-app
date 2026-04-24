@@ -1,5 +1,6 @@
 import '/componentes/tire_os_anuncios_component/tire_os_anuncios_component_widget.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/index.dart';
 import 'calcular_renda_passiva_result_widget.dart'
     show CalcularRendaPassivaResultWidget;
 import 'package:flutter/material.dart';

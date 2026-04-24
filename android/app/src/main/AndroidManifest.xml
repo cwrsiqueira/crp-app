@@ -45,7 +45,7 @@
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="calcularrendapassiva" android:host="calculadorarendapassivaios.com" />
+                <data android:scheme="calcularrendapassiva" android:host="calculadorarendapassiva.com" />
             </intent-filter>
 
         </activity>
