@@ -13,8 +13,8 @@
 
 **Versão do app:**
 - Ir em Settings and Integrations → Mobile Deployment → Version
-- Atualizar `App Version` (Version Name) ex: 1.1.51 → 1.1.52
-- Atualizar `Build Number` (Version Code) ex: 51 → 52
+- Atualizar `App Version` (Version Name) — conferir o valor atual em `pubspec.yaml` (ex.: 1.1.54 → 1.1.55)
+- Atualizar `Build Number` (Version Code) — conferir o valor atual em `pubspec.yaml` (ex.: 54 → 55)
 
 ### 2. Deploy iOS (App Store)
 - No FlutterFlow, fazer deploy normal pela App Store
