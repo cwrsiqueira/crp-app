@@ -1080,7 +1080,13 @@ class _NewPaywallWidgetState extends State<NewPaywallWidget> {
                               ),
                             ),
                           ),
-                          if (false)
+                          if (responsiveVisibility(
+                                context: context,
+                                phone: false,
+                                tablet: false,
+                                tabletLandscape: false,
+                                desktop: false,
+                              ))
                             Container(
                               width: double.infinity,
                               decoration: BoxDecoration(
