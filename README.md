@@ -24,7 +24,7 @@ Fluxo detalhado de merge e deploy: [.github/DEPLOY_ANDROID.md](.github/DEPLOY_AN
 
 | Área | Descrição |
 |------|-----------|
-| `pages/` | Telas: calculadora, resultado, cálculos salvos, paywall, sobre, contato. |
+| `pages/` | Telas: calculadora, resultado, cálculos salvos, paywall, **new paywall**, sobre, contato. |
 | `componentes/` | Widgets reutilizáveis (ex.: paywall, confirmação de exclusão). |
 | `flutter_flow/` | Tema, `go_router` (`nav/nav.dart`), utilitários e modelos FlutterFlow. |
 | `backend/schema/` | Structs (ex.: resultados de cálculo). |
@@ -36,6 +36,7 @@ Fluxo detalhado de merge e deploy: [.github/DEPLOY_ANDROID.md](.github/DEPLOY_AN
 - **Navegação:** `go_router`
 - **Estado:** `provider`
 - **Monetização:** RevenueCat (`purchases_flutter`), anúncios (`google_mobile_ads`)
+- **Analytics / backend:** Firebase (`firebase_core`, `firebase_analytics`, conforme `pubspec.yaml`)
 - **Armazenamento local:** `shared_preferences`, `sqflite` (conforme dependências do `pubspec.yaml`)
 
 ## Manutenção local na `develop` (além do FlutterFlow)
@@ -47,6 +48,8 @@ Estes **arquivos** em `lib/` costumam ser alterados no export do FlutterFlow; ap
 | `flutter_flow/revenue_cat_util.dart` | Compras com API atual do SDK: `Purchases.purchase(PurchaseParams.package(...))` (substitui `purchasePackage`, deprecado em `purchases_flutter` 9.x). |
 | `flutter_flow/nav/serialization_util.dart` | `switch` em `ParamType` **exaustivo** (enum completo): sem ramo `default` redundante — exigência do analyzer Dart 3. |
 | `app_state.dart` | Sem código morto (ex.: helpers privados não referenciados), para manter `dart analyze` limpo. |
+
+Após um merge grande do FlutterFlow, rode **`dart analyze`**. O export às vezes deixa `if (false)` em widgets (gera aviso **dead_code**); substituir por condição real ou `responsiveVisibility` conforme o caso — já tratado em `calcular_renda_passiva_page_widget.dart` e `new_paywall_widget.dart` na `develop`.
 
 ## Execução local
 
@@ -65,7 +68,7 @@ Resumo (detalhes no guia de deploy): `android/app/build.gradle`, `AndroidManifes
 
 ## Estado e próximos passos (visão de produto / release)
 
-1. **Versão atual** — ver `version` em `pubspec.yaml` (ex.: `1.1.54+54`); alinhar FlutterFlow + lojas conforme [.github/DEPLOY_ANDROID.md](.github/DEPLOY_ANDROID.md).
+1. **Versão atual** — ver `version` em `pubspec.yaml` (hoje: **`1.1.59+59`**); alinhar FlutterFlow + lojas conforme [.github/DEPLOY_ANDROID.md](.github/DEPLOY_ANDROID.md).
 2. **Novo ciclo FlutterFlow** — push para `flutterflow` → merge em `develop` → resolver conflitos nos **arquivos** listados no guia de deploy e **revisar** a seção “Manutenção local” acima.
-3. **Qualidade** — `flutter analyze` / testes antes de subir versão; após merge, validar paywall (RevenueCat) e **telas** críticas na build de internal test.
-4. **Repo** — na raiz ainda podem aparecer artefatos locais não versionados (ex.: `.dart_tool/`, `pubspec.lock`); definir `.gitignore` de projeto e política de lockfile se a **equipe** quiser builds reproduzíveis entre máquinas.
+3. **Qualidade** — `dart analyze` / testes antes de subir versão; após merge, validar paywall (RevenueCat), **new paywall** e **telas** críticas na build de internal test.
+4. **Repo** — existe `.gitignore` na raiz (ignora `.dart_tool/`, etc.); **`pubspec.lock`** está versionado para dependências reproduzíveis. Após mudanças no `pubspec.yaml`, rode `flutter pub get` e commit do lockfile quando fizer sentido.
