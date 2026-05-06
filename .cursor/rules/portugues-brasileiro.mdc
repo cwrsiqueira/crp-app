@@ -1,0 +1,12 @@
+---
+description: Usar português brasileiro (pt-BR) em conversas e texto gerado para o projeto
+alwaysApply: true
+---
+
+# Idioma: português brasileiro (pt-BR)
+
+- Responder **sempre em português do Brasil** (pt-BR): vocabulário, ortografia e convenções brasileiras (ex.: **usuário**, **aplicativo**, **arquivo**, **tela**, **código** no sentido de software).
+- Evitar formas típicas de Portugal neste projeto (**ficheiro**, **ecrã**, **equipa**, **convém** no sentido de “é recomendável”, etc.), salvo citação literal de texto legado no código ou em strings de produto.
+- A documentação em Markdown do repositório (**README.md**, **AGENTS.md**, **.github/**, etc.) está em **pt-BR**; **mantenha esse padrão** ao criar ou editar docs.
+- Ao **editar ou criar documentação** no repo (README, guias, textos longos em PR/commit quando o **usuário** pedir texto): usar **pt-BR** explícito e consistente.
+- Nomes de identificadores em código, APIs e pastas **não** precisam ser traduzidos; explicações e passos ao usuário sim, em pt-BR.

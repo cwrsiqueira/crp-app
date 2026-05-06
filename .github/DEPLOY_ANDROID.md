@@ -1,28 +1,30 @@
 # Deploy Android - Play Store (Internal Test)
 
+**Idioma:** este guia está em **português brasileiro (pt-BR)**.
+
 ## Pré-requisitos
 - Alterações feitas e testadas no FlutterFlow
-- Build iOS deployada (opcional, mas recomendado fazer junto)
+- Deploy iOS concluído na App Store (opcional, mas recomendado fazer junto)
 
 ## Passo a passo
 
 ### 1. Atualizar versão no FlutterFlow
 **Dev Environments (variáveis de ambiente):**
-- Ir em Settings and Integrations → Dev Environments
-- Atualizar as variáveis `version` e `versionDate`
+- Acesse Settings and Integrations → Dev Environments
+- Atualize as variáveis `version` e `versionDate`
 
 **Versão do app:**
-- Ir em Settings and Integrations → Mobile Deployment → Version
-- Atualizar `App Version` (Version Name) — conferir o valor atual em `pubspec.yaml` (ex.: 1.1.54 → 1.1.55)
-- Atualizar `Build Number` (Version Code) — conferir o valor atual em `pubspec.yaml` (ex.: 54 → 55)
+- Acesse Settings and Integrations → Mobile Deployment → Version
+- Atualize `App Version` (Version Name) — confira o valor atual em `pubspec.yaml` (ex.: 1.1.54 → 1.1.55)
+- Atualize `Build Number` (Version Code) — confira o valor atual em `pubspec.yaml` (ex.: 54 → 55)
 
 ### 2. Deploy iOS (App Store)
-- No FlutterFlow, fazer deploy normal pela App Store
-- Aguardar confirmação de sucesso
+- No FlutterFlow, faça o deploy normal pela App Store
+- Aguarde a confirmação de sucesso
 
 ### 3. Push para GitHub
-- No FlutterFlow, clicar no botão de push para GitHub (ícone do GitHub)
-- Confirmar push para branch `flutterflow`
+- No FlutterFlow, clique no botão de push para GitHub (ícone do GitHub)
+- Confirme o push para a branch `flutterflow`
 
 ### 4. Merge no terminal (VS Code)
 ```bash
@@ -42,13 +44,13 @@ Os conflitos sempre ocorrem nos mesmos arquivos:
 - Campo `dependency_overrides` → manter **current** (develop) — não existe no FlutterFlow
 
 **`android/app/build.gradle`** → manter **current** (develop)
-- Mantém `applicationId "com.cwrsiqueira.crp_app"` com underscore
+- Mantenha `applicationId "com.cwrsiqueira.crp_app"` com underscore
 
 **`android/app/src/main/AndroidManifest.xml`** → manter **current** (develop)
-- Mantém `package="com.cwrsiqueira.crp_app"` com underscore
+- Mantenha `package="com.cwrsiqueira.crp_app"` com underscore
 
-No VS Code, use **"Accept Incoming Change"** para o `version` do pubspec.yaml
-e **"Accept Current Change"** para todos os demais conflitos.
+No VS Code, use **"Accept Incoming Change"** no `version` do `pubspec.yaml`
+e **"Accept Current Change"** nos demais conflitos.
 
 ### 6. Commit e push
 ```bash
@@ -58,17 +60,17 @@ git push origin develop
 ```
 
 ### 7. Acompanhar o build
-- Acessar GitHub → aba Actions
-- Aguardar o workflow "Deploy Android to Internal Test" concluir (~12 min)
-- Verificar se status ficou verde ✅
+- Acesse GitHub → aba Actions
+- Aguarde o workflow "Deploy Android to Internal Test" concluir (~12 min)
+- Verifique se o status ficou verde ✅
 
 ### 8. Testar na Play Store
-- Acessar Google Play Console → Teste interno
-- Instalar a nova versão no dispositivo
-- Testar as funcionalidades alteradas
+- Acesse o Google Play Console → Teste interno
+- Instale a nova versão no dispositivo
+- Teste as funcionalidades alteradas
 
 ### 9. Promover para Produção (quando pronto)
-- No Google Play Console, promover a versão de Teste interno → Produção
+- No Google Play Console, promova a versão de Teste interno → Produção
 
 ## Arquivos que NUNCA devem ser sobrescritos pela branch flutterflow
 - `android/app/build.gradle` — applicationId com underscore
@@ -80,5 +82,5 @@ git push origin develop
 ## Observações
 - "X commits ahead of and Y commits behind flutterflow" é normal e esperado
 - O build leva aproximadamente 12 minutos para completar
-- Sempre fazer o deploy iOS antes do push para GitHub
-- O campo `version` do pubspec.yaml é sempre atualizado pelo FlutterFlow
+- Faça o deploy iOS antes do push para o GitHub
+- O campo `version` do `pubspec.yaml` é sempre atualizado pelo FlutterFlow
