@@ -70,7 +70,28 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
                 ? NavBarPage(initialPage: 'CalcularRendaPassivaPage')
                 : NavBarPage(
                     initialPage: 'CalcularRendaPassivaPage',
-                    page: CalcularRendaPassivaPageWidget(),
+                    page: CalcularRendaPassivaPageWidget(
+                      prazo: params.getParam(
+                        'prazo',
+                        ParamType.int,
+                      ),
+                      taxa: params.getParam(
+                        'taxa',
+                        ParamType.double,
+                      ),
+                      vlrInicial: params.getParam(
+                        'vlrInicial',
+                        ParamType.double,
+                      ),
+                      vlrRecorrente: params.getParam(
+                        'vlrRecorrente',
+                        ParamType.double,
+                      ),
+                      renda: params.getParam(
+                        'renda',
+                        ParamType.double,
+                      ),
+                    ),
                   )),
         FFRoute(
           name: CalcularRendaPassivaResultWidget.routeName,
@@ -127,6 +148,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: CalculosSalvosWidget.routeName,
           path: CalculosSalvosWidget.routePath,
           builder: (context, params) => CalculosSalvosWidget(),
+        ),
+        FFRoute(
+          name: NewPaywallWidget.routeName,
+          path: NewPaywallWidget.routePath,
+          builder: (context, params) => NewPaywallWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

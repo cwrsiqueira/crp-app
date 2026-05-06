@@ -55,6 +55,9 @@ class FFAppState extends ChangeNotifier {
               prefs.getInt('ff_lastAdShowedAt')!)
           : _lastAdShowedAt;
     });
+    _safeInit(() {
+      _showWhat = prefs.getString('ff_showWhat') ?? _showWhat;
+    });
   }
 
   void update(VoidCallback callback) {
@@ -142,6 +145,13 @@ class FFAppState extends ChangeNotifier {
     value != null
         ? prefs.setInt('ff_lastAdShowedAt', value.millisecondsSinceEpoch)
         : prefs.remove('ff_lastAdShowedAt');
+  }
+
+  String _showWhat = '';
+  String get showWhat => _showWhat;
+  set showWhat(String value) {
+    _showWhat = value;
+    prefs.setString('ff_showWhat', value);
   }
 }
 

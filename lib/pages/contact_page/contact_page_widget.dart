@@ -29,6 +29,8 @@ class _ContactPageWidgetState extends State<ContactPageWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => ContactPageModel());
+
+    logFirebaseEvent('screen_view', parameters: {'screen_name': 'ContactPage'});
   }
 
   @override
@@ -168,10 +170,14 @@ class _ContactPageWidgetState extends State<ContactPageWidget> {
                             children: [
                               FFButtonWidget(
                                 onPressed: () async {
+                                  logFirebaseEvent(
+                                      'CONTACT_PAGE_PAGE_AVALIAR_BTN_ON_TAP');
                                   if (isAndroid) {
+                                    logFirebaseEvent('Button_launch_u_r_l');
                                     await launchURL(
                                         'https://play.google.com/store/apps/details?id=com.cwrsiqueira.crp_app');
                                   } else {
+                                    logFirebaseEvent('Button_launch_u_r_l');
                                     await launchURL(
                                         'https://apps.apple.com/app/calculadora-renda-passiva/id6762054224');
                                   }
@@ -217,10 +223,14 @@ class _ContactPageWidgetState extends State<ContactPageWidget> {
                               ),
                               FFButtonWidget(
                                 onPressed: () async {
+                                  logFirebaseEvent(
+                                      'CONTACT_COMPARTILHAR_BTN_ON_TAP');
                                   if (isAndroid) {
+                                    logFirebaseEvent('Button_launch_u_r_l');
                                     await launchURL(
                                         'https://play.google.com/store/apps/details?id=com.cwrsiqueira.crp_app');
                                   } else {
+                                    logFirebaseEvent('Button_launch_u_r_l');
                                     await launchURL(
                                         'https://apps.apple.com/app/calculadora-renda-passiva/id6762054224');
                                   }
@@ -266,6 +276,9 @@ class _ContactPageWidgetState extends State<ContactPageWidget> {
                               ),
                               FFButtonWidget(
                                 onPressed: () async {
+                                  logFirebaseEvent(
+                                      'CONTACT_PAGE_PAGE_E_MAIL_BTN_ON_TAP');
+                                  logFirebaseEvent('Button_launch_u_r_l');
                                   await launchURL(
                                       'mailto:contato@carlosdev.com.br');
                                 },

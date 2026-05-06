@@ -31,8 +31,11 @@ class _PaywallWidgetState extends State<PaywallWidget> {
     super.initState();
     _model = createModel(context, () => PaywallModel());
 
+    logFirebaseEvent('screen_view', parameters: {'screen_name': 'paywall'});
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
+      logFirebaseEvent('PAYWALL_PAGE_paywall_ON_INIT_STATE');
+      logFirebaseEvent('paywall_update_page_state');
       _model.productPrice = valueOrDefault<String>(
         revenue_cat.offerings!.current!
                         .getPackage('\$rc_lifetime')!
@@ -82,6 +85,8 @@ class _PaywallWidgetState extends State<PaywallWidget> {
               size: 24.0,
             ),
             onPressed: () async {
+              logFirebaseEvent('PAYWALL_PAGE_arrow_back_sharp_ICN_ON_TAP');
+              logFirebaseEvent('IconButton_navigate_back');
               context.safePop();
             },
           ),
@@ -904,14 +909,19 @@ class _PaywallWidgetState extends State<PaywallWidget> {
                           children: [
                             FFButtonWidget(
                               onPressed: () async {
+                                logFirebaseEvent(
+                                    'PAYWALL_ATIVE_A_VERSO_P_R_O_BTN_ON_TAP');
+                                logFirebaseEvent('Button_revenue_cat');
                                 _model.didPurchaseLifetime =
                                     await revenue_cat.purchasePackage(
                                         revenue_cat.offerings!.current!
                                             .getPackage('\$rc_lifetime')!
                                             .identifier);
                                 if (_model.didPurchaseLifetime!) {
+                                  logFirebaseEvent('Button_update_app_state');
                                   FFAppState().isPro = true;
                                   safeSetState(() {});
+                                  logFirebaseEvent('Button_show_snack_bar');
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
                                       content: Text(
@@ -926,12 +936,15 @@ class _PaywallWidgetState extends State<PaywallWidget> {
                                           FlutterFlowTheme.of(context).success,
                                     ),
                                   );
+                                  logFirebaseEvent('Button_navigate_to');
 
                                   context.pushNamed(
                                       CalcularRendaPassivaPageWidget.routeName);
                                 } else {
+                                  logFirebaseEvent('Button_update_app_state');
                                   FFAppState().isPro = false;
                                   safeSetState(() {});
+                                  logFirebaseEvent('Button_show_snack_bar');
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
                                       content: Text(
@@ -984,7 +997,11 @@ class _PaywallWidgetState extends State<PaywallWidget> {
                             ),
                             FFButtonWidget(
                               onPressed: () async {
+                                logFirebaseEvent(
+                                    'PAYWALL_PAGE_RESTAURAR_COMPRA_BTN_ON_TAP');
+                                logFirebaseEvent('Button_revenue_cat');
                                 await revenue_cat.restorePurchases();
+                                logFirebaseEvent('Button_revenue_cat');
                                 final isEntitled = await revenue_cat
                                         .isEntitled('CRP PRO Entitlement') ??
                                     false;
@@ -993,8 +1010,10 @@ class _PaywallWidgetState extends State<PaywallWidget> {
                                 }
 
                                 if (isEntitled) {
+                                  logFirebaseEvent('Button_update_app_state');
                                   FFAppState().isPro = true;
                                   safeSetState(() {});
+                                  logFirebaseEvent('Button_show_snack_bar');
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
                                       content: Text(
@@ -1009,12 +1028,15 @@ class _PaywallWidgetState extends State<PaywallWidget> {
                                           FlutterFlowTheme.of(context).success,
                                     ),
                                   );
+                                  logFirebaseEvent('Button_navigate_to');
 
                                   context.pushNamed(
                                       CalcularRendaPassivaPageWidget.routeName);
                                 } else {
+                                  logFirebaseEvent('Button_update_app_state');
                                   FFAppState().isPro = false;
                                   safeSetState(() {});
+                                  logFirebaseEvent('Button_show_snack_bar');
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
                                       content: Text(

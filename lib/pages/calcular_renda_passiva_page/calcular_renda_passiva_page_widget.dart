@@ -19,7 +19,20 @@ export 'calcular_renda_passiva_page_model.dart';
 
 /// Página Inicial
 class CalcularRendaPassivaPageWidget extends StatefulWidget {
-  const CalcularRendaPassivaPageWidget({super.key});
+  const CalcularRendaPassivaPageWidget({
+    super.key,
+    this.prazo,
+    this.taxa,
+    this.vlrInicial,
+    this.vlrRecorrente,
+    this.renda,
+  });
+
+  final int? prazo;
+  final double? taxa;
+  final double? vlrInicial;
+  final double? vlrRecorrente;
+  final double? renda;
 
   static String routeName = 'CalcularRendaPassivaPage';
   static String routePath = '/calcularRendaPassivaPage';
@@ -40,20 +53,15 @@ class _CalcularRendaPassivaPageWidgetState
     super.initState();
     _model = createModel(context, () => CalcularRendaPassivaPageModel());
 
+    logFirebaseEvent('screen_view',
+        parameters: {'screen_name': 'CalcularRendaPassivaPage'});
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      if (dateTimeFormat("d/M", FFAppState().versiculoUpdatedAt) !=
-          dateTimeFormat("d/M", getCurrentTimestamp)) {
-        FFAppState().versiculoHoje = getJsonField(
-          functions.versiculoRendaPassivaAleatorio(),
-          r'''$''',
-        );
-        safeSetState(() {});
-        FFAppState().versiculoUpdatedAt = getCurrentTimestamp;
-        safeSetState(() {});
-      }
+      logFirebaseEvent('CALCULAR_RENDA_PASSIVA_CalcularRendaPass');
       if (!FFAppState().isPro) {
+        logFirebaseEvent('CalcularRendaPassivaPage_revenue_cat');
         await revenue_cat.restorePurchases();
+        logFirebaseEvent('CalcularRendaPassivaPage_revenue_cat');
         final isEntitled =
             await revenue_cat.isEntitled('CRP PRO Entitlement') ?? false;
         if (!isEntitled) {
@@ -61,9 +69,12 @@ class _CalcularRendaPassivaPageWidgetState
         }
 
         if (isEntitled) {
+          logFirebaseEvent('CalcularRendaPassivaPage_update_app_stat');
           FFAppState().isPro = true;
           safeSetState(() {});
         } else {
+          logFirebaseEvent('CalcularRendaPassivaPage_ad_mob');
+
           admob.loadInterstitialAd(
             "ca-app-pub-5865817649832793/9960496559",
             "ca-app-pub-5865817649832793/2235602168",
@@ -71,23 +82,57 @@ class _CalcularRendaPassivaPageWidgetState
           );
         }
       }
+      logFirebaseEvent('CalcularRendaPassivaPage_custom_action');
       await actions.checkAndRequestReview();
     });
 
-    _model.inputPrazoTextController ??= TextEditingController();
+    _model.inputPrazoTextController ??= TextEditingController(
+        text: widget.prazo != null ? widget.prazo?.toString() : '');
     _model.inputPrazoFocusNode ??= FocusNode();
 
     _model.inputPrazoMask = MaskTextInputFormatter(mask: '###');
-    _model.inputTaxaTextController ??= TextEditingController();
+    _model.inputTaxaTextController ??= TextEditingController(
+        text: widget.taxa != null
+            ? formatNumber(
+                widget.taxa,
+                formatType: FormatType.decimal,
+                decimalType: DecimalType.commaDecimal,
+                currency: ' ',
+              )
+            : '');
     _model.inputTaxaFocusNode ??= FocusNode();
 
-    _model.inputVlrInicialTextController ??= TextEditingController();
+    _model.inputVlrInicialTextController ??= TextEditingController(
+        text: widget.vlrInicial != null
+            ? formatNumber(
+                widget.vlrInicial,
+                formatType: FormatType.decimal,
+                decimalType: DecimalType.commaDecimal,
+                currency: ' ',
+              )
+            : '');
     _model.inputVlrInicialFocusNode ??= FocusNode();
 
-    _model.inputVlrRecorrenteTextController ??= TextEditingController();
+    _model.inputVlrRecorrenteTextController ??= TextEditingController(
+        text: widget.vlrRecorrente != null
+            ? formatNumber(
+                widget.vlrRecorrente,
+                formatType: FormatType.decimal,
+                decimalType: DecimalType.commaDecimal,
+                currency: ' ',
+              )
+            : '');
     _model.inputVlrRecorrenteFocusNode ??= FocusNode();
 
-    _model.inputRendaPassivaTextController ??= TextEditingController();
+    _model.inputRendaPassivaTextController ??= TextEditingController(
+        text: widget.renda != null
+            ? formatNumber(
+                widget.renda,
+                formatType: FormatType.decimal,
+                decimalType: DecimalType.commaDecimal,
+                currency: ' ',
+              )
+            : '');
     _model.inputRendaPassivaFocusNode ??= FocusNode();
   }
 
@@ -413,6 +458,10 @@ class _CalcularRendaPassivaPageWidgetState
                                                   '_model.inputTaxaTextController',
                                                   Duration(milliseconds: 0),
                                                   () async {
+                                                    logFirebaseEvent(
+                                                        'CALCULAR_RENDA_PASSIVA_InputTaxa_ON_TEXT');
+                                                    logFirebaseEvent(
+                                                        'InputTaxa_custom_action');
                                                     _model.resultValorFormatado =
                                                         await actions
                                                             .formatarValor(
@@ -420,6 +469,8 @@ class _CalcularRendaPassivaPageWidgetState
                                                           .inputTaxaTextController
                                                           .text,
                                                     );
+                                                    logFirebaseEvent(
+                                                        'InputTaxa_set_form_field');
                                                     safeSetState(() {
                                                       _model.inputTaxaTextController
                                                               ?.text =
@@ -645,6 +696,10 @@ class _CalcularRendaPassivaPageWidgetState
                                                   '_model.inputVlrInicialTextController',
                                                   Duration(milliseconds: 0),
                                                   () async {
+                                                    logFirebaseEvent(
+                                                        'CALCULAR_RENDA_PASSIVA_inputVlrInicial_O');
+                                                    logFirebaseEvent(
+                                                        'inputVlrInicial_custom_action');
                                                     _model.resultValorInicialFormatado =
                                                         await actions
                                                             .formatarValor(
@@ -652,6 +707,8 @@ class _CalcularRendaPassivaPageWidgetState
                                                           .inputVlrInicialTextController
                                                           .text,
                                                     );
+                                                    logFirebaseEvent(
+                                                        'inputVlrInicial_set_form_field');
                                                     safeSetState(() {
                                                       _model.inputVlrInicialTextController
                                                               ?.text =
@@ -853,6 +910,10 @@ class _CalcularRendaPassivaPageWidgetState
                                                   '_model.inputVlrRecorrenteTextController',
                                                   Duration(milliseconds: 0),
                                                   () async {
+                                                    logFirebaseEvent(
+                                                        'CALCULAR_RENDA_PASSIVA_inputVlrRecorrent');
+                                                    logFirebaseEvent(
+                                                        'inputVlrRecorrente_custom_action');
                                                     _model.resultVlrRecorrenteFormatado =
                                                         await actions
                                                             .formatarValor(
@@ -860,6 +921,8 @@ class _CalcularRendaPassivaPageWidgetState
                                                           .inputVlrRecorrenteTextController
                                                           .text,
                                                     );
+                                                    logFirebaseEvent(
+                                                        'inputVlrRecorrente_set_form_field');
                                                     safeSetState(() {
                                                       _model.inputVlrRecorrenteTextController
                                                               ?.text =
@@ -1068,6 +1131,10 @@ class _CalcularRendaPassivaPageWidgetState
                                                 '_model.inputRendaPassivaTextController',
                                                 Duration(milliseconds: 0),
                                                 () async {
+                                                  logFirebaseEvent(
+                                                      'CALCULAR_RENDA_PASSIVA_inputRendaPassiva');
+                                                  logFirebaseEvent(
+                                                      'inputRendaPassiva_custom_action');
                                                   _model.resultRendaPassivaFormatado =
                                                       await actions
                                                           .formatarValor(
@@ -1075,6 +1142,8 @@ class _CalcularRendaPassivaPageWidgetState
                                                         .inputRendaPassivaTextController
                                                         .text,
                                                   );
+                                                  logFirebaseEvent(
+                                                      'inputRendaPassiva_set_form_field');
                                                   safeSetState(() {
                                                     _model.inputRendaPassivaTextController
                                                             ?.text =
@@ -1273,6 +1342,8 @@ class _CalcularRendaPassivaPageWidgetState
                                               padding: EdgeInsets.all(4.0),
                                               child: FFButtonWidget(
                                                 onPressed: () async {
+                                                  logFirebaseEvent(
+                                                      'CALCULAR_RENDA_PASSIVA_btnCalcular_ON_TA');
                                                   if (functions.checkFields(
                                                       _model
                                                           .inputPrazoTextController
@@ -1289,6 +1360,9 @@ class _CalcularRendaPassivaPageWidgetState
                                                       _model
                                                           .inputRendaPassivaTextController
                                                           .text)) {
+                                                    logFirebaseEvent(
+                                                        'btnCalcular_navigate_to');
+
                                                     context.pushNamed(
                                                       CalcularRendaPassivaResultWidget
                                                           .routeName,
@@ -1397,6 +1471,8 @@ class _CalcularRendaPassivaPageWidgetState
                                                       }.withoutNulls,
                                                     );
                                                   } else {
+                                                    logFirebaseEvent(
+                                                        'btnCalcular_alert_dialog');
                                                     await showDialog(
                                                       context: context,
                                                       builder:
@@ -1489,6 +1565,10 @@ class _CalcularRendaPassivaPageWidgetState
                                               padding: EdgeInsets.all(4.0),
                                               child: FFButtonWidget(
                                                 onPressed: () async {
+                                                  logFirebaseEvent(
+                                                      'CALCULAR_RENDA_PASSIVA_btnLimpar_ON_TAP');
+                                                  logFirebaseEvent(
+                                                      'btnLimpar_clear_text_fields_pin_codes');
                                                   safeSetState(() {
                                                     _model
                                                         .inputPrazoTextController
@@ -1592,6 +1672,10 @@ class _CalcularRendaPassivaPageWidgetState
                                 hoverColor: Colors.transparent,
                                 highlightColor: Colors.transparent,
                                 onTap: () async {
+                                  logFirebaseEvent(
+                                      'CALCULAR_RENDA_PASSIVA_Text_x9sez7i5_ON_');
+                                  logFirebaseEvent('Text_navigate_to');
+
                                   context.pushNamed(
                                       CalculosSalvosWidget.routeName);
                                 },
@@ -1617,127 +1701,383 @@ class _CalcularRendaPassivaPageWidgetState
                                 ),
                               ),
                             ),
-                          Padding(
-                            padding: EdgeInsets.all(16.0),
-                            child: Material(
-                              color: Colors.transparent,
-                              elevation: 2.0,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(16.0),
-                              ),
-                              child: Container(
-                                width: double.infinity,
-                                decoration: BoxDecoration(
-                                  boxShadow: [
-                                    BoxShadow(
-                                      blurRadius: 4.0,
-                                      color: Color(0x33000000),
-                                      offset: Offset(
-                                        0.0,
-                                        2.0,
-                                      ),
-                                    )
-                                  ],
-                                  gradient: LinearGradient(
-                                    colors: [
-                                      FlutterFlowTheme.of(context)
-                                          .primaryBackground,
-                                      FlutterFlowTheme.of(context).alternate
-                                    ],
-                                    stops: [0.0, 1.0],
-                                    begin: AlignmentDirectional(0.0, -1.0),
-                                    end: AlignmentDirectional(0, 1.0),
-                                  ),
+                          if (false)
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  16.0, 16.0, 16.0, 4.0),
+                              child: Material(
+                                color: Colors.transparent,
+                                elevation: 2.0,
+                                shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(16.0),
-                                  border: Border.all(
-                                    color:
-                                        FlutterFlowTheme.of(context).alternate,
-                                  ),
                                 ),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          16.0, 16.0, 16.0, 8.0),
-                                      child: Text(
-                                        'Versículo de hoje ${dateTimeFormat("d/M", getCurrentTimestamp)}',
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodySmall
-                                            .override(
-                                              font: GoogleFonts.inter(
-                                                fontWeight: FontWeight.normal,
-                                                fontStyle:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodySmall
-                                                        .fontStyle,
-                                              ),
-                                              letterSpacing: 0.0,
-                                              fontWeight: FontWeight.normal,
-                                              fontStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodySmall
-                                                      .fontStyle,
-                                            ),
-                                      ),
+                                child: Container(
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                    boxShadow: [
+                                      BoxShadow(
+                                        blurRadius: 4.0,
+                                        color: Color(0x33000000),
+                                        offset: Offset(
+                                          0.0,
+                                          2.0,
+                                        ),
+                                      )
+                                    ],
+                                    gradient: LinearGradient(
+                                      colors: [
+                                        FlutterFlowTheme.of(context)
+                                            .primaryBackground,
+                                        FlutterFlowTheme.of(context).alternate
+                                      ],
+                                      stops: [0.0, 1.0],
+                                      begin: AlignmentDirectional(0.0, -1.0),
+                                      end: AlignmentDirectional(0, 1.0),
                                     ),
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          16.0, 16.0, 16.0, 0.0),
-                                      child: Text(
-                                        '\"${getJsonField(
-                                          FFAppState().versiculoHoje,
-                                          r'''$.versiculo''',
-                                        ).toString()}\"',
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyLarge
-                                            .override(
-                                              font: GoogleFonts.inter(
-                                                fontWeight:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyLarge
-                                                        .fontWeight,
-                                                fontStyle: FontStyle.italic,
-                                              ),
-                                              letterSpacing: 0.0,
-                                              fontWeight:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyLarge
-                                                      .fontWeight,
-                                              fontStyle: FontStyle.italic,
-                                            ),
-                                      ),
+                                    borderRadius: BorderRadius.circular(16.0),
+                                    border: Border.all(
+                                      color: FlutterFlowTheme.of(context)
+                                          .alternate,
                                     ),
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          16.0, 8.0, 16.0, 16.0),
-                                      child: Text(
-                                        '- ${getJsonField(
-                                          FFAppState().versiculoHoje,
-                                          r'''$.fonte''',
-                                        ).toString()}',
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              font: GoogleFonts.inter(
-                                                fontWeight: FontWeight.w600,
-                                                fontStyle:
+                                  ),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      if (FFAppState().showWhat != '')
+                                        Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(
+                                                      16.0, 16.0, 16.0, 8.0),
+                                              child: Text(
+                                                '${() {
+                                                  if (FFAppState().showWhat ==
+                                                      'versiculos') {
+                                                    return 'Versículo de hoje';
+                                                  } else if (FFAppState()
+                                                          .showWhat ==
+                                                      'motivacionais') {
+                                                    return 'Frase de hoje';
+                                                  } else {
+                                                    return 'Ensinamento de hoje';
+                                                  }
+                                                }()}: ${dateTimeFormat("d/M", getCurrentTimestamp)}',
+                                                style: FlutterFlowTheme.of(
+                                                        context)
+                                                    .bodySmall
+                                                    .override(
+                                                      font: GoogleFonts.inter(
+                                                        fontWeight:
+                                                            FontWeight.normal,
+                                                        fontStyle:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodySmall
+                                                                .fontStyle,
+                                                      ),
+                                                      letterSpacing: 0.0,
+                                                      fontWeight:
+                                                          FontWeight.normal,
+                                                      fontStyle:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .bodySmall
+                                                              .fontStyle,
+                                                    ),
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(
+                                                      16.0, 16.0, 16.0, 0.0),
+                                              child: Text(
+                                                '\"${getJsonField(
+                                                  FFAppState().versiculoHoje,
+                                                  r'''$.versiculo''',
+                                                ).toString()}\"',
+                                                style: FlutterFlowTheme.of(
+                                                        context)
+                                                    .bodyLarge
+                                                    .override(
+                                                      font: GoogleFonts.inter(
+                                                        fontWeight:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyLarge
+                                                                .fontWeight,
+                                                        fontStyle:
+                                                            FontStyle.italic,
+                                                      ),
+                                                      letterSpacing: 0.0,
+                                                      fontWeight:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .bodyLarge
+                                                              .fontWeight,
+                                                      fontStyle:
+                                                          FontStyle.italic,
+                                                    ),
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(
+                                                      16.0, 8.0, 16.0, 16.0),
+                                              child: Text(
+                                                '- ${getJsonField(
+                                                  FFAppState().versiculoHoje,
+                                                  r'''$.fonte''',
+                                                ).toString()}',
+                                                style:
                                                     FlutterFlowTheme.of(context)
                                                         .bodyMedium
-                                                        .fontStyle,
+                                                        .override(
+                                                          font:
+                                                              GoogleFonts.inter(
+                                                            fontWeight:
+                                                                FontWeight.w600,
+                                                            fontStyle:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .fontStyle,
+                                                          ),
+                                                          letterSpacing: 0.0,
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                          fontStyle:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyMedium
+                                                                  .fontStyle,
+                                                        ),
                                               ),
-                                              letterSpacing: 0.0,
-                                              fontWeight: FontWeight.w600,
+                                            ),
+                                          ],
+                                        ),
+                                      if (FFAppState().showWhat != '')
+                                        Divider(
+                                          thickness: 1.0,
+                                          color: Color(0x33757575),
+                                        ),
+                                      Padding(
+                                        padding: EdgeInsets.all(8.0),
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                            InkWell(
+                                              splashColor: Colors.transparent,
+                                              focusColor: Colors.transparent,
+                                              hoverColor: Colors.transparent,
+                                              highlightColor:
+                                                  Colors.transparent,
+                                              onTap: () async {
+                                                logFirebaseEvent(
+                                                    'CALCULAR_RENDA_PASSIVA_Icon_6u04acst_ON_');
+                                                if (FFAppState().showWhat ==
+                                                    'versiculos') {
+                                                  logFirebaseEvent(
+                                                      'Icon_update_app_state');
+                                                  FFAppState().showWhat = '';
+                                                  safeSetState(() {});
+                                                } else {
+                                                  logFirebaseEvent(
+                                                      'Icon_update_app_state');
+                                                  FFAppState().showWhat =
+                                                      'versiculos';
+                                                  safeSetState(() {});
+                                                  logFirebaseEvent(
+                                                      'Icon_update_app_state');
+                                                  FFAppState().versiculoHoje =
+                                                      functions
+                                                          .versiculoRendaPassivaAleatorio(
+                                                              'versiculos');
+                                                  safeSetState(() {});
+                                                }
+                                              },
+                                              child: Icon(
+                                                Icons.menu_book,
+                                                color: FFAppState().showWhat ==
+                                                        'versiculos'
+                                                    ? FlutterFlowTheme.of(
+                                                            context)
+                                                        .primary
+                                                    : FlutterFlowTheme.of(
+                                                            context)
+                                                        .secondaryText,
+                                                size: 24.0,
+                                              ),
+                                            ),
+                                            InkWell(
+                                              splashColor: Colors.transparent,
+                                              focusColor: Colors.transparent,
+                                              hoverColor: Colors.transparent,
+                                              highlightColor:
+                                                  Colors.transparent,
+                                              onTap: () async {
+                                                logFirebaseEvent(
+                                                    'CALCULAR_RENDA_PASSIVA_Icon_nwpm32u2_ON_');
+                                                if (FFAppState().showWhat ==
+                                                    'motivacionais') {
+                                                  logFirebaseEvent(
+                                                      'Icon_update_app_state');
+                                                  FFAppState().showWhat = '';
+                                                  safeSetState(() {});
+                                                } else {
+                                                  logFirebaseEvent(
+                                                      'Icon_update_app_state');
+                                                  FFAppState().showWhat =
+                                                      'motivacionais';
+                                                  safeSetState(() {});
+                                                  logFirebaseEvent(
+                                                      'Icon_update_app_state');
+                                                  FFAppState().versiculoHoje =
+                                                      functions
+                                                          .versiculoRendaPassivaAleatorio(
+                                                              'motivacionais');
+                                                  safeSetState(() {});
+                                                }
+                                              },
+                                              child: Icon(
+                                                Icons.emoji_events_outlined,
+                                                color: FFAppState().showWhat ==
+                                                        'motivacionais'
+                                                    ? FlutterFlowTheme.of(
+                                                            context)
+                                                        .primary
+                                                    : FlutterFlowTheme.of(
+                                                            context)
+                                                        .secondaryText,
+                                                size: 24.0,
+                                              ),
+                                            ),
+                                            InkWell(
+                                              splashColor: Colors.transparent,
+                                              focusColor: Colors.transparent,
+                                              hoverColor: Colors.transparent,
+                                              highlightColor:
+                                                  Colors.transparent,
+                                              onTap: () async {
+                                                logFirebaseEvent(
+                                                    'CALCULAR_RENDA_PASSIVA_Icon_5v1r7ja1_ON_');
+                                                if (FFAppState().showWhat ==
+                                                    'engracadas') {
+                                                  logFirebaseEvent(
+                                                      'Icon_update_app_state');
+                                                  FFAppState().showWhat = '';
+                                                  safeSetState(() {});
+                                                } else {
+                                                  logFirebaseEvent(
+                                                      'Icon_update_app_state');
+                                                  FFAppState().showWhat =
+                                                      'engracadas';
+                                                  safeSetState(() {});
+                                                  logFirebaseEvent(
+                                                      'Icon_update_app_state');
+                                                  FFAppState().versiculoHoje =
+                                                      functions
+                                                          .versiculoRendaPassivaAleatorio(
+                                                              'engracadas');
+                                                  safeSetState(() {});
+                                                }
+                                              },
+                                              child: Icon(
+                                                Icons
+                                                    .sentiment_very_satisfied_sharp,
+                                                color: FFAppState().showWhat ==
+                                                        'engracadas'
+                                                    ? FlutterFlowTheme.of(
+                                                            context)
+                                                        .primary
+                                                    : FlutterFlowTheme.of(
+                                                            context)
+                                                        .secondaryText,
+                                                size: 24.0,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                16.0, 16.0, 16.0, 4.0),
+                            child: Container(
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(16.0),
+                              ),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsets.all(16.0),
+                                    child: Text(
+                                      '“Transforme pequenos aportes em grandes possibilidades e acompanhe sua renda passiva crescer dia após dia.”',
+                                      textAlign: TextAlign.center,
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            font: GoogleFonts.inter(
+                                              fontWeight: FontWeight.w500,
                                               fontStyle:
                                                   FlutterFlowTheme.of(context)
                                                       .bodyMedium
                                                       .fontStyle,
                                             ),
-                                      ),
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondaryText,
+                                            fontSize: 16.0,
+                                            letterSpacing: 1.3,
+                                            fontWeight: FontWeight.w500,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontStyle,
+                                            lineHeight: 1.3,
+                                          ),
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                  Text(
+                                    'Equipe CRP',
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          font: GoogleFonts.inter(
+                                            fontWeight:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontWeight,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontStyle,
+                                          ),
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondaryText,
+                                          fontSize: 12.0,
+                                          letterSpacing: 0.0,
+                                          fontWeight:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontWeight,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontStyle,
+                                        ),
+                                  ),
+                                ],
                               ),
                             ),
                           ),
@@ -1754,6 +2094,9 @@ class _CalcularRendaPassivaPageWidgetState
                                         .bodyMedium
                                         .fontStyle,
                                   ),
+                                  color: FlutterFlowTheme.of(context)
+                                      .secondaryText,
+                                  fontSize: 12.0,
                                   letterSpacing: 0.0,
                                   fontWeight: FlutterFlowTheme.of(context)
                                       .bodyMedium
