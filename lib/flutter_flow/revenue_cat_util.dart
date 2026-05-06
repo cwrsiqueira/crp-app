@@ -80,8 +80,9 @@ Future<bool> purchasePackage(String package) async {
     if (revenueCatPackage == null) {
       return false;
     }
-    // v9.0+: purchasePackage returns PurchaseResult instead of CustomerInfo
-    final result = await Purchases.purchasePackage(revenueCatPackage);
+    final result = await Purchases.purchase(
+      PurchaseParams.package(revenueCatPackage),
+    );
     customerInfo = result.customerInfo;
     return true;
   } catch (_) {
