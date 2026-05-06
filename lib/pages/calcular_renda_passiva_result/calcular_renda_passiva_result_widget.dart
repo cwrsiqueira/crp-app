@@ -57,8 +57,12 @@ class _CalcularRendaPassivaResultWidgetState
     super.initState();
     _model = createModel(context, () => CalcularRendaPassivaResultModel());
 
+    logFirebaseEvent('screen_view',
+        parameters: {'screen_name': 'CalcularRendaPassivaResult'});
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
+      logFirebaseEvent('CALCULAR_RENDA_PASSIVA_RESULT_CalcularRe');
+      logFirebaseEvent('CalcularRendaPassivaResult_update_page_s');
       _model.results = functions.doCalcs(widget.prazo, widget.taxaMensal,
           widget.valorInicial, widget.valorRecorrente, widget.renda);
       safeSetState(() {});
@@ -71,11 +75,16 @@ class _CalcularRendaPassivaResultWidgetState
                           .toString()) ??
                       0) <
               180))) {
+        logFirebaseEvent('CalcularRendaPassivaResult_ad_mob');
+
         _model.interstitialAdSuccess = await admob.showInterstitialAd();
 
+        logFirebaseEvent('CalcularRendaPassivaResult_update_app_st');
         FFAppState().lastAdShowedAt = getCurrentTimestamp;
         safeSetState(() {});
         if (_model.interstitialAdSuccess!) {
+          logFirebaseEvent('CalcularRendaPassivaResult_ad_mob');
+
           admob.loadInterstitialAd(
             "ca-app-pub-5865817649832793/9960496559",
             "ca-app-pub-5865817649832793/2235602168",
@@ -84,6 +93,7 @@ class _CalcularRendaPassivaResultWidgetState
         }
       }
       if (widget.results != null) {
+        logFirebaseEvent('CalcularRendaPassivaResult_update_page_s');
         _model.results = getJsonField(
           widget.results,
           r'''$''',
@@ -97,6 +107,8 @@ class _CalcularRendaPassivaResultWidgetState
   void dispose() {
     // On page dispose action.
     () async {
+      logFirebaseEvent('CALCULAR_RENDA_PASSIVA_RESULT_CalcularRe');
+      logFirebaseEvent('CalcularRendaPassivaResult_bottom_sheet');
       Navigator.pop(context);
     }();
 
@@ -131,7 +143,34 @@ class _CalcularRendaPassivaResultWidgetState
               size: 30.0,
             ),
             onPressed: () async {
-              context.pushNamed(CalcularRendaPassivaPageWidget.routeName);
+              logFirebaseEvent('CALCULAR_RENDA_PASSIVA_RESULT_home_ICN_O');
+              logFirebaseEvent('IconButton_navigate_to');
+
+              context.pushNamed(
+                CalcularRendaPassivaPageWidget.routeName,
+                queryParameters: {
+                  'prazo': serializeParam(
+                    widget.prazo,
+                    ParamType.int,
+                  ),
+                  'taxa': serializeParam(
+                    widget.taxaMensal,
+                    ParamType.double,
+                  ),
+                  'vlrInicial': serializeParam(
+                    widget.valorInicial,
+                    ParamType.double,
+                  ),
+                  'vlrRecorrente': serializeParam(
+                    widget.valorRecorrente,
+                    ParamType.double,
+                  ),
+                  'renda': serializeParam(
+                    widget.renda,
+                    ParamType.double,
+                  ),
+                }.withoutNulls,
+              );
             },
           ),
           title: Text(
@@ -942,6 +981,10 @@ class _CalcularRendaPassivaResultWidgetState
                                             padding: EdgeInsets.all(4.0),
                                             child: FFButtonWidget(
                                               onPressed: () async {
+                                                logFirebaseEvent(
+                                                    'CALCULAR_RENDA_PASSIVA_RESULT_btnCompart');
+                                                logFirebaseEvent(
+                                                    'btnCompartilhar_share');
                                                 await Share.share(
                                                   functions.formatResults(
                                                       getJsonField(
@@ -1062,11 +1105,15 @@ class _CalcularRendaPassivaResultWidgetState
                                           hoverColor: Colors.transparent,
                                           highlightColor: Colors.transparent,
                                           onTap: () async {
+                                            logFirebaseEvent(
+                                                'CALCULAR_RENDA_PASSIVA_RESULT_Container_');
                                             if ((FFAppState()
                                                         .historicoDeCalculos
                                                         .length >=
                                                     3) &&
                                                 !FFAppState().isPro) {
+                                              logFirebaseEvent(
+                                                  'Container_bottom_sheet');
                                               await showModalBottomSheet(
                                                 isScrollControlled: true,
                                                 backgroundColor:
@@ -1104,14 +1151,38 @@ class _CalcularRendaPassivaResultWidgetState
                                               ).then((value) =>
                                                   safeSetState(() {}));
                                             } else {
+                                              logFirebaseEvent(
+                                                  'Container_update_app_state');
                                               FFAppState()
                                                   .addToHistoricoDeCalculos(
                                                       _model.results!);
                                               safeSetState(() {});
                                             }
 
+                                            logFirebaseEvent(
+                                                'Container_update_page_state');
                                             _model.showSaveCalc = true;
                                             safeSetState(() {});
+                                            logFirebaseEvent(
+                                                'Container_show_snack_bar');
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(
+                                              SnackBar(
+                                                content: Text(
+                                                  'Cálculo salvo com sucesso!',
+                                                  style: TextStyle(
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .primaryText,
+                                                  ),
+                                                ),
+                                                duration: Duration(
+                                                    milliseconds: 4000),
+                                                backgroundColor:
+                                                    FlutterFlowTheme.of(context)
+                                                        .secondary,
+                                              ),
+                                            );
                                           },
                                           child: Material(
                                             color: Colors.transparent,
@@ -1216,6 +1287,9 @@ class _CalcularRendaPassivaResultWidgetState
                                     hoverColor: Colors.transparent,
                                     highlightColor: Colors.transparent,
                                     onTap: () async {
+                                      logFirebaseEvent(
+                                          'CALCULAR_RENDA_PASSIVA_RESULT_Row_oadeh4');
+                                      logFirebaseEvent('Row_update_page_state');
                                       _model.showSaveCalc =
                                           !_model.showSaveCalc;
                                       safeSetState(() {});
@@ -1334,6 +1408,10 @@ class _CalcularRendaPassivaResultWidgetState
                                           hoverColor: Colors.transparent,
                                           highlightColor: Colors.transparent,
                                           onTap: () async {
+                                            logFirebaseEvent(
+                                                'CALCULAR_RENDA_PASSIVA_RESULT_Container_');
+                                            logFirebaseEvent(
+                                                'Container_update_page_state');
                                             _model.results = getJsonField(
                                               listaResultadosItem,
                                               r'''$''',
@@ -1394,13 +1472,100 @@ class _CalcularRendaPassivaResultWidgetState
                                                         highlightColor:
                                                             Colors.transparent,
                                                         onTap: () async {
-                                                          FFAppState()
-                                                              .removeFromHistoricoDeCalculos(
-                                                                  getJsonField(
-                                                            listaResultadosItem,
-                                                            r'''$''',
-                                                          ));
-                                                          safeSetState(() {});
+                                                          logFirebaseEvent(
+                                                              'CALCULAR_RENDA_PASSIVA_RESULT_Icon_dfj1t');
+                                                          logFirebaseEvent(
+                                                              'Icon_alert_dialog');
+                                                          var confirmDialogResponse =
+                                                              await showDialog<
+                                                                      bool>(
+                                                                    context:
+                                                                        context,
+                                                                    builder:
+                                                                        (alertDialogContext) {
+                                                                      return AlertDialog(
+                                                                        title: Text(
+                                                                            'Atenção!'),
+                                                                        content:
+                                                                            Text('Confirma a exclusão do cálculo?'),
+                                                                        actions: [
+                                                                          TextButton(
+                                                                            onPressed: () =>
+                                                                                Navigator.pop(alertDialogContext, false),
+                                                                            child:
+                                                                                Text('Cancelar'),
+                                                                          ),
+                                                                          TextButton(
+                                                                            onPressed: () =>
+                                                                                Navigator.pop(alertDialogContext, true),
+                                                                            child:
+                                                                                Text('Confirmar'),
+                                                                          ),
+                                                                        ],
+                                                                      );
+                                                                    },
+                                                                  ) ??
+                                                                  false;
+                                                          if (confirmDialogResponse) {
+                                                            logFirebaseEvent(
+                                                                'Icon_update_app_state');
+                                                            FFAppState()
+                                                                .removeFromHistoricoDeCalculos(
+                                                                    getJsonField(
+                                                              listaResultadosItem,
+                                                              r'''$''',
+                                                            ));
+                                                            safeSetState(() {});
+                                                            logFirebaseEvent(
+                                                                'Icon_show_snack_bar');
+                                                            ScaffoldMessenger
+                                                                    .of(context)
+                                                                .showSnackBar(
+                                                              SnackBar(
+                                                                content: Text(
+                                                                  'Cálculo excluído com sucesso!',
+                                                                  style:
+                                                                      TextStyle(
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .primaryText,
+                                                                  ),
+                                                                ),
+                                                                duration: Duration(
+                                                                    milliseconds:
+                                                                        4000),
+                                                                backgroundColor:
+                                                                    FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .secondary,
+                                                              ),
+                                                            );
+                                                          } else {
+                                                            logFirebaseEvent(
+                                                                'Icon_show_snack_bar');
+                                                            ScaffoldMessenger
+                                                                    .of(context)
+                                                                .showSnackBar(
+                                                              SnackBar(
+                                                                content: Text(
+                                                                  'Ação cancelada!',
+                                                                  style:
+                                                                      TextStyle(
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .primaryText,
+                                                                  ),
+                                                                ),
+                                                                duration: Duration(
+                                                                    milliseconds:
+                                                                        4000),
+                                                                backgroundColor:
+                                                                    FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .error,
+                                                              ),
+                                                            );
+                                                          }
                                                         },
                                                         child: Icon(
                                                           Icons.clear,
@@ -1558,6 +1723,10 @@ class _CalcularRendaPassivaResultWidgetState
                                 hoverColor: Colors.transparent,
                                 highlightColor: Colors.transparent,
                                 onTap: () async {
+                                  logFirebaseEvent(
+                                      'CALCULAR_RENDA_PASSIVA_RESULT_Text_iskz8');
+                                  logFirebaseEvent('Text_navigate_to');
+
                                   context.pushNamed(
                                       CalculosSalvosWidget.routeName);
                                 },

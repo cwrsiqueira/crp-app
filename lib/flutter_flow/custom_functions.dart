@@ -330,7 +330,7 @@ Valor da Renda Passiva: $valorRendaPassiva
 ''';
 }
 
-dynamic versiculoRendaPassivaAleatorio() {
+dynamic versiculoRendaPassivaAleatorio(String? tipo) {
   final random = math.Random();
 
   final versiculos = <Map<String, String>>[
@@ -473,5 +473,224 @@ dynamic versiculoRendaPassivaAleatorio() {
     },
   ];
 
-  return versiculos[random.nextInt(versiculos.length)];
+  final motivacionais = <Map<String, String>>[
+    {
+      "versiculo": "Comece onde você está, use o que tem e faça o que pode.",
+      "fonte": "Squire Bill Widener",
+    },
+    {
+      "versiculo": "A jornada de mil milhas começa debaixo dos seus pés.",
+      "fonte": "Laozi",
+    },
+    {
+      "versiculo": "Uma árvore imensa nasce de um broto minúsculo.",
+      "fonte": "Laozi",
+    },
+    {
+      "versiculo": "Aprender com perseverança é uma alegria.",
+      "fonte": "Confúcio",
+    },
+    {
+      "versiculo": "Quando vir alguém de valor, pense em igualá-lo.",
+      "fonte": "Confúcio",
+    },
+    {
+      "versiculo": "A pessoa superior é modesta no falar e abundante no agir.",
+      "fonte": "Confúcio",
+    },
+    {
+      "versiculo": "Aja antes de falar; depois, fale de acordo com suas ações.",
+      "fonte": "Confúcio",
+    },
+    {
+      "versiculo":
+          "O que antes era obstáculo pode se tornar o próprio caminho.",
+      "fonte": "Marco Aurélio",
+    },
+    {
+      "versiculo": "Aquilo que está fora de você não comanda a sua opinião.",
+      "fonte": "Marco Aurélio",
+    },
+    {
+      "versiculo":
+          "Faça o que é justo e fale a verdade; nisso há uma vida feliz.",
+      "fonte": "Marco Aurélio",
+    },
+    {
+      "versiculo": "Não temos pouco tempo; desperdiçamos muito.",
+      "fonte": "Sêneca",
+    },
+    {
+      "versiculo":
+          "O problema não é a vida ser curta, mas o mau uso que fazemos dela.",
+      "fonte": "Sêneca",
+    },
+    {
+      "versiculo":
+          "As pessoas se perturbam não pelas coisas, mas pelas opiniões que fazem delas.",
+      "fonte": "Epicteto",
+    },
+    {
+      "versiculo":
+          "Não falhei; apenas encontrei milhares de maneiras que não funcionam.",
+      "fonte": "Thomas Edison",
+    },
+    {
+      "versiculo":
+          "Gênio é um por cento inspiração e noventa e nove por cento transpiração.",
+      "fonte": "Thomas Edison",
+    },
+    {
+      "versiculo": "Nossa maior fraqueza está em desistir; tente mais uma vez.",
+      "fonte": "Thomas Edison",
+    },
+    {
+      "versiculo": "Não há substituto para o trabalho duro.",
+      "fonte": "Thomas Edison",
+    },
+    {
+      "versiculo": "O otimismo é a fé que leva à realização.",
+      "fonte": "Helen Keller",
+    },
+    {
+      "versiculo": "Sozinhos fazemos pouco; juntos fazemos muito mais.",
+      "fonte": "Helen Keller",
+    },
+    {
+      "versiculo": "Faça de cada dia a sua obra-prima.",
+      "fonte": "John Wooden",
+    },
+    {
+      "versiculo": "A disciplina é a ponte entre pensamento e realização.",
+      "fonte": "Jim Rohn",
+    },
+    {
+      "versiculo":
+          "O que você se torna ao alcançar seus objetivos é mais importante do que o que conquista.",
+      "fonte": "Zig Ziglar",
+    },
+    {
+      "versiculo":
+          "Espere o melhor, prepare-se para o pior e aproveite o que vier.",
+      "fonte": "Zig Ziglar",
+    },
+    {
+      "versiculo":
+          "O sucesso acontece quando a oportunidade encontra a preparação.",
+      "fonte": "Zig Ziglar",
+    },
+    {
+      "versiculo":
+          "Todo feito, toda riqueza conquistada, começa por uma ideia.",
+      "fonte": "Napoleon Hill",
+    },
+    {
+      "versiculo":
+          "Valorize suas visões e seus sonhos; eles são os mapas das suas conquistas.",
+      "fonte": "Napoleon Hill",
+    },
+    {
+      "versiculo":
+          "A coragem é resistência ao medo, domínio do medo, não ausência dele.",
+      "fonte": "Mark Twain",
+    },
+    {
+      "versiculo":
+          "O sucesso se mede mais pelos obstáculos superados do que pela posição alcançada.",
+      "fonte": "Booker T. Washington",
+    },
+    {
+      "versiculo": "Avance com confiança na direção dos seus sonhos.",
+      "fonte": "Henry David Thoreau",
+    },
+    {
+      "versiculo":
+          "Tente não ser uma pessoa de sucesso, mas uma pessoa de valor.",
+      "fonte": "Albert Einstein",
+    },
+  ];
+
+  final engracadas = <Map<String, String>>[
+    {
+      "versiculo": "A vida é curta. Sorria enquanto ainda tem dentes.",
+      "fonte": "Autor desconhecido, provavelmente um dentista",
+    },
+    {
+      "versiculo":
+          "Se o plano não der certo, relaxa. O alfabeto tem mais 25 letras.",
+      "fonte": "Autor desconhecido",
+    },
+    {
+      "versiculo":
+          "Acordar cedo é o primeiro passo para passar o dia inteiro com sono.",
+      "fonte": "Autor desconhecido, porém experiente",
+    },
+    {
+      "versiculo":
+          "Não deixe para amanhã o que você pode deixar para depois de amanhã.",
+      "fonte": "Mark Twain",
+    },
+    {
+      "versiculo":
+          "O importante não é vencer todos os dias, mas dormir sem boleto vencido.",
+      "fonte": "Autor desconhecido, brasileiro certamente",
+    },
+    {
+      "versiculo":
+          "Trabalhe duro em silêncio e deixe seu boleto fazer barulho.",
+      "fonte": "Coach desconhecido",
+    },
+    {
+      "versiculo": "Se dinheiro não traz felicidade, me dê o seu e seja feliz.",
+      "fonte": "Autor desconhecido e muito prestativo",
+    },
+    {
+      "versiculo": "Eu não sou preguiçoso, estou em modo economia de energia.",
+      "fonte": "Autor desconhecido, versão 2.0",
+    },
+    {
+      "versiculo": "Nunca desista dos seus sonhos. Continue dormindo.",
+      "fonte": "Autor desconhecido",
+    },
+    {
+      "versiculo": "Errar é humano. Colocar a culpa no sistema é tecnologia.",
+      "fonte": "Autor desconhecido do TI",
+    },
+    {
+      "versiculo": "A fé move montanhas, mas o café move pessoas.",
+      "fonte": "Autor desconhecido, cafeinado",
+    },
+    {
+      "versiculo": "Hoje eu acordei disposto. Disposto a voltar para a cama.",
+      "fonte": "Autor desconhecido",
+    },
+    {
+      "versiculo": "Tudo passa. Nem que seja no cartão de crédito.",
+      "fonte": "Autor desconhecido",
+    },
+    {
+      "versiculo":
+          "O sucesso é uma escada. O problema é que às vezes eu procuro o elevador.",
+      "fonte": "Autor desconhecido",
+    },
+    {
+      "versiculo":
+          "A vida é feita de escolhas. Hoje escolhi mais cinco minutos.",
+      "fonte": "Autor desconhecido",
+    },
+  ];
+
+  List<Map<String, String>> mostrar;
+
+  if (tipo == 'versiculos') {
+    mostrar = versiculos;
+  } else if (tipo == 'motivacionais') {
+    mostrar = motivacionais;
+  } else if (tipo == 'engracadas') {
+    mostrar = engracadas;
+  } else {
+    mostrar = versiculos;
+  }
+
+  return mostrar[random.nextInt(mostrar.length)];
 }

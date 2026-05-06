@@ -117,6 +117,10 @@ class _NenhumCalculoSalvoWidgetState extends State<NenhumCalculoSalvoWidget> {
                 children: [
                   FFButtonWidget(
                     onPressed: () async {
+                      logFirebaseEvent(
+                          'NENHUM_CALCULO_SALVO_CALCULAR_BTN_ON_TAP');
+                      logFirebaseEvent('Button_navigate_to');
+
                       context
                           .pushNamed(CalcularRendaPassivaPageWidget.routeName);
                     },

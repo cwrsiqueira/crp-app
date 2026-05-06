@@ -29,6 +29,9 @@ class _CalculosSalvosWidgetState extends State<CalculosSalvosWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => CalculosSalvosModel());
+
+    logFirebaseEvent('screen_view',
+        parameters: {'screen_name': 'CalculosSalvos'});
   }
 
   @override
@@ -64,6 +67,8 @@ class _CalculosSalvosWidgetState extends State<CalculosSalvosWidget> {
               size: 30.0,
             ),
             onPressed: () async {
+              logFirebaseEvent('CALCULOS_SALVOS_arrow_back_rounded_ICN_O');
+              logFirebaseEvent('IconButton_navigate_back');
               context.pop();
             },
           ),
@@ -209,6 +214,11 @@ class _CalculosSalvosWidgetState extends State<CalculosSalvosWidget> {
                                         hoverColor: Colors.transparent,
                                         highlightColor: Colors.transparent,
                                         onTap: () async {
+                                          logFirebaseEvent(
+                                              'CALCULOS_SALVOS_Column_axrfnqlh_ON_TAP');
+                                          logFirebaseEvent(
+                                              'Column_navigate_to');
+
                                           context.pushNamed(
                                             CalcularRendaPassivaResultWidget
                                                 .routeName,
@@ -392,13 +402,91 @@ class _CalculosSalvosWidgetState extends State<CalculosSalvosWidget> {
                                       size: 20.0,
                                     ),
                                     onPressed: () async {
-                                      FFAppState()
-                                          .removeFromHistoricoDeCalculos(
-                                              getJsonField(
-                                        savedCalcListItem,
-                                        r'''$''',
-                                      ));
-                                      safeSetState(() {});
+                                      logFirebaseEvent(
+                                          'CALCULOS_SALVOS_delete_outline_rounded_I');
+                                      logFirebaseEvent(
+                                          'IconButton_alert_dialog');
+                                      var confirmDialogResponse =
+                                          await showDialog<bool>(
+                                                context: context,
+                                                builder: (alertDialogContext) {
+                                                  return AlertDialog(
+                                                    title: Text('Atenção!'),
+                                                    content: Text(
+                                                        'Confirma a exclusão do cálculo?'),
+                                                    actions: [
+                                                      TextButton(
+                                                        onPressed: () =>
+                                                            Navigator.pop(
+                                                                alertDialogContext,
+                                                                false),
+                                                        child: Text('Cancelar'),
+                                                      ),
+                                                      TextButton(
+                                                        onPressed: () =>
+                                                            Navigator.pop(
+                                                                alertDialogContext,
+                                                                true),
+                                                        child:
+                                                            Text('Confirmar'),
+                                                      ),
+                                                    ],
+                                                  );
+                                                },
+                                              ) ??
+                                              false;
+                                      if (confirmDialogResponse) {
+                                        logFirebaseEvent(
+                                            'IconButton_update_app_state');
+                                        FFAppState()
+                                            .removeFromHistoricoDeCalculos(
+                                                getJsonField(
+                                          savedCalcListItem,
+                                          r'''$''',
+                                        ));
+                                        safeSetState(() {});
+                                        logFirebaseEvent(
+                                            'IconButton_show_snack_bar');
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          SnackBar(
+                                            content: Text(
+                                              'Cálculo excluído com sucesso!',
+                                              style: TextStyle(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primaryText,
+                                              ),
+                                            ),
+                                            duration:
+                                                Duration(milliseconds: 4000),
+                                            backgroundColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .secondary,
+                                          ),
+                                        );
+                                      } else {
+                                        logFirebaseEvent(
+                                            'IconButton_show_snack_bar');
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          SnackBar(
+                                            content: Text(
+                                              'Ação cancelada!',
+                                              style: TextStyle(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primaryText,
+                                              ),
+                                            ),
+                                            duration:
+                                                Duration(milliseconds: 4000),
+                                            backgroundColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .error,
+                                          ),
+                                        );
+                                      }
                                     },
                                   ),
                                 ],

@@ -8,3 +8,4 @@ export '/pages/about_page/about_page_widget.dart' show AboutPageWidget;
 export '/pages/paywall/paywall_widget.dart' show PaywallWidget;
 export '/pages/calculos_salvos/calculos_salvos_widget.dart'
     show CalculosSalvosWidget;
+export '/pages/new_paywall/new_paywall_widget.dart' show NewPaywallWidget;

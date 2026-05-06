@@ -91,11 +91,15 @@ class _ConfirmDeleteWidgetState extends State<ConfirmDeleteWidget> {
               padding: EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
               child: FFButtonWidget(
                 onPressed: () async {
+                  logFirebaseEvent('CONFIRM_DELETE_EXCLUIR_O_RESULTADO_MAIS_');
+                  logFirebaseEvent('Button_update_app_state');
                   FFAppState().removeFromHistoricoDeCalculos(
                       FFAppState().historicoDeCalculos.firstOrNull!);
                   safeSetState(() {});
+                  logFirebaseEvent('Button_update_app_state');
                   FFAppState().addToHistoricoDeCalculos(widget.calcResult!);
                   safeSetState(() {});
+                  logFirebaseEvent('Button_bottom_sheet');
                   Navigator.pop(context);
                 },
                 text: 'Excluir o resultado mais antigo',
@@ -130,10 +134,14 @@ class _ConfirmDeleteWidgetState extends State<ConfirmDeleteWidget> {
               padding: EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
               child: FFButtonWidget(
                 onPressed: () async {
+                  logFirebaseEvent('CONFIRM_DELETE_EXCLUIR_T_O_D_O_S_OS_RESU');
+                  logFirebaseEvent('Button_update_app_state');
                   FFAppState().historicoDeCalculos = [];
                   safeSetState(() {});
+                  logFirebaseEvent('Button_update_app_state');
                   FFAppState().addToHistoricoDeCalculos(widget.calcResult!);
                   safeSetState(() {});
+                  logFirebaseEvent('Button_bottom_sheet');
                   Navigator.pop(context);
                 },
                 text: 'Excluir TODOS os resultados',
@@ -173,6 +181,8 @@ class _ConfirmDeleteWidgetState extends State<ConfirmDeleteWidget> {
               padding: EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
               child: FFButtonWidget(
                 onPressed: () async {
+                  logFirebaseEvent('CONFIRM_DELETE_COMP_FECHAR_BTN_ON_TAP');
+                  logFirebaseEvent('Button_bottom_sheet');
                   Navigator.pop(context);
                 },
                 text: 'Fechar',

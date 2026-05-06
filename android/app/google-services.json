@@ -1,0 +1,105 @@
+{
+  "project_info": {
+    "project_number": "254854273065",
+    "project_id": "fin-calc-simulador-fina-45dk6z",
+    "storage_bucket": "fin-calc-simulador-fina-45dk6z.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:254854273065:android:0a7b4f491779a5a3172438",
+        "android_client_info": {
+          "package_name": "br.com.carlosdev.imc"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAEjanWqYVnEw0qayiw8FmQhW1GrsvCpwg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:254854273065:android:a5eab921c26a502d172438",
+        "android_client_info": {
+          "package_name": "com.cwrsiqueira.crp_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAEjanWqYVnEw0qayiw8FmQhW1GrsvCpwg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:254854273065:android:ac83c581c96496c5172438",
+        "android_client_info": {
+          "package_name": "com.cwrsiqueira.crpapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAEjanWqYVnEw0qayiw8FmQhW1GrsvCpwg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:254854273065:android:3c7cda1bec52953e172438",
+        "android_client_info": {
+          "package_name": "com.cwrsiqueira.fincalc"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAEjanWqYVnEw0qayiw8FmQhW1GrsvCpwg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:254854273065:android:7e1b3660078d429f172438",
+        "android_client_info": {
+          "package_name": "com.cwrsiqueira.numerosporextensolite"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAEjanWqYVnEw0qayiw8FmQhW1GrsvCpwg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

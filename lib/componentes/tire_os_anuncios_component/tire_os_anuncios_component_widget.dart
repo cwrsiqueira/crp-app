@@ -52,7 +52,10 @@ class _TireOsAnunciosComponentWidgetState
         hoverColor: Colors.transparent,
         highlightColor: Colors.transparent,
         onTap: () async {
-          context.pushNamed(PaywallWidget.routeName);
+          logFirebaseEvent('TIRE_OS_ANUNCIOS_COMPONENT_Row_h2ue8evp_');
+          logFirebaseEvent('Row_navigate_to');
+
+          context.pushNamed(NewPaywallWidget.routeName);
         },
         child: Row(
           mainAxisSize: MainAxisSize.max,
@@ -70,12 +73,13 @@ class _TireOsAnunciosComponentWidgetState
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
                         colors: [
-                          FlutterFlowTheme.of(context).primary,
-                          FlutterFlowTheme.of(context).secondary
+                          Color(0xFF6C3DE0),
+                          Color(0xFF3D1FA8),
+                          Color(0xFF0A0A0F)
                         ],
-                        stops: [0.0, 1.0],
-                        begin: AlignmentDirectional(0.0, -1.0),
-                        end: AlignmentDirectional(0, 1.0),
+                        stops: [0.0, 0.5, 1.0],
+                        begin: AlignmentDirectional(0.0, 1.0),
+                        end: AlignmentDirectional(0, -1.0),
                       ),
                       borderRadius: BorderRadius.circular(16.0),
                     ),
@@ -101,7 +105,36 @@ class _TireOsAnunciosComponentWidgetState
                                       alignment:
                                           AlignmentDirectional(0.0, -1.0),
                                       child: Text(
-                                        'SALVAR CÁLCULOS ILIMITADOS e REMOVER ANÚNCIOS',
+                                        'SALVAR CÁLCULOS ILIMITADOS',
+                                        textAlign: TextAlign.center,
+                                        style: FlutterFlowTheme.of(context)
+                                            .titleMedium
+                                            .override(
+                                              font: GoogleFonts.inter(
+                                                fontWeight: FontWeight.w500,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .titleMedium
+                                                        .fontStyle,
+                                              ),
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondaryBackground,
+                                              fontSize: 18.0,
+                                              letterSpacing: 0.0,
+                                              fontWeight: FontWeight.w500,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .titleMedium
+                                                      .fontStyle,
+                                            ),
+                                      ),
+                                    ),
+                                    Align(
+                                      alignment:
+                                          AlignmentDirectional(0.0, -1.0),
+                                      child: Text(
+                                        ' e REMOVER ANÚNCIOS',
                                         textAlign: TextAlign.center,
                                         style: FlutterFlowTheme.of(context)
                                             .titleMedium
@@ -127,7 +160,37 @@ class _TireOsAnunciosComponentWidgetState
                                       ),
                                     ),
                                     Text(
-                                      'Os anúncios ajudam a manter o aplicativo, para removê-los ative a versão PRO',
+                                      'Os anúncios ajudam a manter o aplicativo, ',
+                                      textAlign: TextAlign.center,
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            font: GoogleFonts.inter(
+                                              fontWeight:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .fontWeight,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .fontStyle,
+                                            ),
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryBackground,
+                                            fontSize: 12.0,
+                                            letterSpacing: 0.0,
+                                            fontWeight:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontWeight,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontStyle,
+                                          ),
+                                    ),
+                                    Text(
+                                      'para removê-los ative a versão PRO',
                                       textAlign: TextAlign.center,
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
@@ -232,7 +295,7 @@ class _TireOsAnunciosComponentWidgetState
                                         ),
                                       ),
                                       Text(
-                                        'Experiência sem anúncios',
+                                        'Acesso vitalício a todos os recursos',
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .override(
@@ -277,7 +340,7 @@ class _TireOsAnunciosComponentWidgetState
                                         ),
                                       ),
                                       Text(
-                                        'Acesso e atualizações vitalícias',
+                                        'Atualizações futuras incluídas',
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .override(
@@ -322,7 +385,7 @@ class _TireOsAnunciosComponentWidgetState
                                         ),
                                       ),
                                       Text(
-                                        'Ajude a manter a versão gratuita',
+                                        'Experiência sem anúncios',
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .override(
@@ -390,7 +453,7 @@ class _TireOsAnunciosComponentWidgetState
                                   ),
                                   Icon(
                                     Icons.workspace_premium,
-                                    color: FlutterFlowTheme.of(context).warning,
+                                    color: Color(0xFFB794FF),
                                     size: 36.0,
                                   ),
                                   Padding(
@@ -398,8 +461,12 @@ class _TireOsAnunciosComponentWidgetState
                                         0.0, 8.0, 0.0, 0.0),
                                     child: FFButtonWidget(
                                       onPressed: () async {
-                                        context
-                                            .pushNamed(PaywallWidget.routeName);
+                                        logFirebaseEvent(
+                                            'TIRE_OS_ANUNCIOS_COMPONENT_ATIVAR_A_G_O_');
+                                        logFirebaseEvent('Button_navigate_to');
+
+                                        context.pushNamed(
+                                            NewPaywallWidget.routeName);
                                       },
                                       text: 'Ativar AGORA',
                                       options: FFButtonOptions(
@@ -408,8 +475,7 @@ class _TireOsAnunciosComponentWidgetState
                                         iconPadding:
                                             EdgeInsetsDirectional.fromSTEB(
                                                 0.0, 0.0, 0.0, 0.0),
-                                        color: FlutterFlowTheme.of(context)
-                                            .warning,
+                                        color: Color(0xFFB794FF),
                                         textStyle: FlutterFlowTheme.of(context)
                                             .labelMedium
                                             .override(
@@ -425,7 +491,7 @@ class _TireOsAnunciosComponentWidgetState
                                               ),
                                               color:
                                                   FlutterFlowTheme.of(context)
-                                                      .secondaryText,
+                                                      .primaryBackground,
                                               fontSize: 12.0,
                                               letterSpacing: 0.0,
                                               fontWeight:
