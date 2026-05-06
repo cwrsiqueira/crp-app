@@ -1,0 +1,22 @@
+# Flutter / Dart / Pub — template alinhado a `flutter create`
+**/doc/api/
+**/ios/Flutter/.last_build_id
+**/ios/Flutter/ephemeral/
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+/build/
+**/build/
+
+# Android / IntelliJ / misc
+*.iml
+.idea/
+.atom/
+**/local.properties
+
+# Logs e temporários comuns
+*.log
+.DS_Store
