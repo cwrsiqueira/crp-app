@@ -68,7 +68,7 @@ Resumo (detalhes no guia de deploy): `android/app/build.gradle`, `AndroidManifes
 
 ## Estado e próximos passos (visão de produto / release)
 
-1. **Versão atual** — ver `version` em `pubspec.yaml` (hoje: **`1.1.59+59`**); alinhar FlutterFlow + lojas conforme [.github/DEPLOY_ANDROID.md](.github/DEPLOY_ANDROID.md).
+1. **Referência de release** — última versão **publicada em produção** (Play Store): **`1.1.60+60`** (nome + código de build; confira sempre o campo `version` no `pubspec.yaml` na `develop` ao abrir novo ciclo). Fluxo: [.github/DEPLOY_ANDROID.md](.github/DEPLOY_ANDROID.md).
 2. **Novo ciclo FlutterFlow** — push para `flutterflow` → merge em `develop` → resolver conflitos nos **arquivos** listados no guia de deploy e **revisar** a seção “Manutenção local” acima.
 3. **Qualidade** — `dart analyze` / testes antes de subir versão; após merge, validar paywall (RevenueCat), **new paywall** e **telas** críticas na build de internal test.
 4. **Repo** — existe `.gitignore` na raiz (ignora `.dart_tool/`, etc.); **`pubspec.lock`** está versionado para dependências reproduzíveis. Após mudanças no `pubspec.yaml`, rode `flutter pub get` e commit do lockfile quando fizer sentido.
