@@ -75,11 +75,7 @@ class _CalcularRendaPassivaPageWidgetState
         } else {
           logFirebaseEvent('CalcularRendaPassivaPage_ad_mob');
 
-          admob.loadInterstitialAd(
-            "ca-app-pub-5865817649832793/9960496559",
-            "ca-app-pub-5865817649832793/2235602168",
-            false,
-          );
+          _model.interstitialAdSuccess = await admob.showInterstitialAd();
         }
       }
       logFirebaseEvent('CalcularRendaPassivaPage_custom_action');
@@ -203,17 +199,6 @@ class _CalcularRendaPassivaPageWidgetState
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              if (!FFAppState().isPro)
-                Container(
-                  decoration: BoxDecoration(
-                    color: FlutterFlowTheme.of(context).secondaryBackground,
-                  ),
-                  child: FlutterFlowAdBanner(
-                    showsTestAd: false,
-                    iOSAdUnitID: 'ca-app-pub-5865817649832793/1962375006',
-                    androidAdUnitID: 'ca-app-pub-5865817649832793/9327002395',
-                  ),
-                ),
               Expanded(
                 child: Container(
                   constraints: BoxConstraints(

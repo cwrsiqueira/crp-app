@@ -10,6 +10,8 @@ class CalcularRendaPassivaPageModel
   ///  State fields for stateful widgets in this page.
 
   final formKey = GlobalKey<FormState>();
+  // Stores action output result for [AdMob - Show Interstitial Ad] action in CalcularRendaPassivaPage widget.
+  bool? interstitialAdSuccess;
   // State field(s) for inputPrazo widget.
   FocusNode? inputPrazoFocusNode;
   TextEditingController? inputPrazoTextController;

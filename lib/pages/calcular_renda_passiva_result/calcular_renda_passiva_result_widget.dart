@@ -66,31 +66,14 @@ class _CalcularRendaPassivaResultWidgetState
       _model.results = functions.doCalcs(widget.prazo, widget.taxaMensal,
           widget.valorInicial, widget.valorRecorrente, widget.renda);
       safeSetState(() {});
-      if (!(FFAppState().isPro ||
-          ((int.tryParse(getCurrentTimestamp.secondsSinceEpoch.toString()) ??
-                      0) -
-                  (int.tryParse(FFAppState()
-                          .lastAdShowedAt!
-                          .secondsSinceEpoch
-                          .toString()) ??
-                      0) <
-              180))) {
+      if (!FFAppState().isPro) {
         logFirebaseEvent('CalcularRendaPassivaResult_ad_mob');
 
-        _model.interstitialAdSuccess = await admob.showInterstitialAd();
-
-        logFirebaseEvent('CalcularRendaPassivaResult_update_app_st');
-        FFAppState().lastAdShowedAt = getCurrentTimestamp;
-        safeSetState(() {});
-        if (_model.interstitialAdSuccess!) {
-          logFirebaseEvent('CalcularRendaPassivaResult_ad_mob');
-
-          admob.loadInterstitialAd(
-            "ca-app-pub-5865817649832793/9960496559",
-            "ca-app-pub-5865817649832793/2235602168",
-            false,
-          );
-        }
+        admob.loadInterstitialAd(
+          "ca-app-pub-5865817649832793/9960496559",
+          "ca-app-pub-5865817649832793/2235602168",
+          false,
+        );
       }
       if (widget.results != null) {
         logFirebaseEvent('CalcularRendaPassivaResult_update_page_s');
@@ -200,17 +183,6 @@ class _CalcularRendaPassivaResultWidgetState
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
-              if (!FFAppState().isPro)
-                Container(
-                  decoration: BoxDecoration(
-                    color: FlutterFlowTheme.of(context).secondaryBackground,
-                  ),
-                  child: FlutterFlowAdBanner(
-                    showsTestAd: false,
-                    iOSAdUnitID: 'ca-app-pub-5865817649832793/1962375006',
-                    androidAdUnitID: 'ca-app-pub-5865817649832793/1840841806',
-                  ),
-                ),
               Expanded(
                 child: Padding(
                   padding: EdgeInsets.all(12.0),

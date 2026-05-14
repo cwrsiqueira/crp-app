@@ -82,17 +82,6 @@ class _ContactPageWidgetState extends State<ContactPageWidget> {
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
-              if (!FFAppState().isPro)
-                Container(
-                  decoration: BoxDecoration(
-                    color: FlutterFlowTheme.of(context).secondaryBackground,
-                  ),
-                  child: FlutterFlowAdBanner(
-                    showsTestAd: false,
-                    iOSAdUnitID: 'ca-app-pub-5865817649832793/1962375006',
-                    androidAdUnitID: 'ca-app-pub-5865817649832793/5613278236',
-                  ),
-                ),
               Expanded(
                 child: Padding(
                   padding: EdgeInsets.all(12.0),
