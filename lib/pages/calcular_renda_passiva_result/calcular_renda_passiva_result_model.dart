@@ -15,8 +15,6 @@ class CalcularRendaPassivaResultModel
 
   ///  State fields for stateful widgets in this page.
 
-  // Stores action output result for [AdMob - Show Interstitial Ad] action in CalcularRendaPassivaResult widget.
-  bool? interstitialAdSuccess;
   // Model for TireOsAnunciosComponent component.
   late TireOsAnunciosComponentModel tireOsAnunciosComponentModel;
 
